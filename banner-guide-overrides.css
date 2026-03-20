@@ -1,0 +1,157 @@
+/* ==========================================================================
+   PENDO BANNER GUIDE OVERRIDES
+
+   1) Close button — Pill-style close with translucent background (for
+      dark/colored banner backgrounds)
+   2) Banner layout — Single-line horizontal layout: [icon] [text] [button] [X]
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1) CLOSE BUTTON PILL (translucent for colored backgrounds)
+   -------------------------------------------------------------------------- */
+
+.pendo-close-circle-wrap {
+  position: absolute !important;
+  top: 50% !important;
+  right: 12px !important;
+  transform: translateY(-50%) !important;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.01);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1.3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 1px 1px 0px 1px rgba(212, 210, 208, 0.10);
+  z-index: 999999 !important;
+  cursor: pointer;
+  transition: background 160ms ease, border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pendo-close-circle-wrap:hover {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: #c6c2bf;
+  box-shadow: 1px 1px 0px 1px rgba(212, 210, 208, 0.20);
+}
+
+.pendo-close-circle-wrap:active {
+  background: rgba(255, 255, 255, 0.10);
+  border-color: #c6c2bf;
+  box-shadow: inset 2px 2px 0px 1px rgba(56, 49, 47, 0.10);
+}
+
+.pendo-close-circle-wrap > button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pendo-close-circle-wrap svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+.pendo-close-circle-wrap svg path {
+  stroke: #fff;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 160ms ease;
+}
+
+
+/* --------------------------------------------------------------------------
+   2) BANNER LAYOUT
+   Single horizontal line: [icon] [text ...fills space...] [button] [X]
+   -------------------------------------------------------------------------- */
+
+/* Container is the positioning reference */
+._pendo-step-container-styles {
+  position: relative !important;
+}
+
+/* Row: reserve space for icon on left (icon ~18px + 12px left + 4px gap = 34px)
+   and X button on right (pill ~42px + 12px right + 8px gap = 62px) */
+._pendo-step-container-styles ._pendo-row {
+  padding-left: 34px !important;
+  padding-right: 62px !important;
+}
+
+/* Icon wrapper: position the entire block-controls-wrapper that contains
+   the code block, not just the code block itself. The wrapper is a direct
+   child of the container but collapses to 0px height by default. */
+._pendo-step-container-styles > .pendo-block-controls-wrapper:has(.pendo-code-block),
+._pendo-step-container-styles > div:has(> .pendo-code-block) {
+  position: absolute !important;
+  left: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 1;
+  height: auto !important;
+  overflow: visible !important;
+}
+
+/* Close button wrapper: also needs absolute positioning on the container
+   since the pill is inside a block-controls-wrapper that may be in the
+   wrong flow position */
+._pendo-step-container-styles > .pendo-block-controls-wrapper:has(.pendo-close-circle-wrap),
+._pendo-step-container-styles > div:has(.pendo-close-circle-wrap) {
+  position: absolute !important;
+  right: 0 !important;
+  top: 0 !important;
+  bottom: 0 !important;
+  left: auto !important;
+  width: auto !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  padding-right: 12px !important;
+  z-index: 999999 !important;
+}
+
+/* Make the mock flexbox row a real flexbox */
+._pendo-step-container-styles .pendo-mock-flexbox-row {
+  display: flex !important;
+  align-items: center !important;
+  width: 100% !important;
+  gap: 12px;
+}
+
+/* Text element: fill available space, single line with ellipsis */
+._pendo-step-container-styles .pendo-mock-flexbox-element:has(._pendo-text-custom) {
+  flex: 1 1 0% !important;
+  min-width: 0 !important;
+  width: auto !important;
+  position: static !important;
+}
+
+._pendo-step-container-styles ._pendo-text-custom {
+  width: 100% !important;
+}
+
+._pendo-step-container-styles ._pendo-text-custom p {
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  margin: 0 !important;
+}
+
+/* Button element: don't shrink, stay at natural width */
+._pendo-step-container-styles .pendo-mock-flexbox-element:has(.bb-button) {
+  flex: 0 0 auto !important;
+  width: auto !important;
+  position: static !important;
+}

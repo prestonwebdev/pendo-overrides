@@ -1,0 +1,239 @@
+/* ==========================================================================
+
+   PENDO GUIDE CUSTOMIZATIONS
+
+   1) Animation — Guides start hidden in CSS, animate in via JS trigger
+   2) Close button — Custom pill-style close (Centered guides only, via JS)
+   3) Brand colors — Primary button and poll submit use CSS custom
+      properties set by JS from the customer's brand theme
+   4) Footer bar — Fixed footer for button actions
+   5) Header bar — Fixed header with brand-colored text
+   6) Scrollable content — Middle content scrolls (JS-created wrapper)
+   7) Heading color
+   8) Designer-safe layout — Flex layout and row padding applied via CSS
+      so the designer renders close to the live preview
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1) GUIDE ANIMATION
+   -------------------------------------------------------------------------- */
+
+._pendo-step-container-styles button {
+  cursor: pointer;
+}
+
+/* Container — starts hidden, flex column with fixed max height */
+._pendo-step-container-styles {
+  max-height: 624px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  padding-bottom: 24px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Visible state — applied by JS after delay */
+._pendo-step-container-styles.pendo-animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
+/* --------------------------------------------------------------------------
+   2) CLOSE BUTTON PILL
+   -------------------------------------------------------------------------- */
+
+.pendo-close-circle-wrap {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c6c2bf;
+  box-shadow: 1px 1px 0 2px rgba(56, 49, 47, 0.04);
+  z-index: 999999 !important;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pendo-close-circle-wrap:hover {
+  border-color: #676260;
+}
+
+.pendo-close-circle-wrap > button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pendo-close-circle-wrap svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+.pendo-close-circle-wrap svg path {
+  stroke: #3b3737;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 160ms ease;
+}
+
+.pendo-close-circle-wrap:active {
+  border-color: var(--pendo-brand-base, #287411);
+  box-shadow: inset 2px 2px 0 1px rgba(56, 49, 47, 0.10);
+}
+
+.pendo-close-circle-wrap:active svg path {
+  stroke: var(--pendo-brand-base, #287411);
+}
+
+
+/* --------------------------------------------------------------------------
+   3) BRAND COLORS — Primary button and poll submit overrides
+   -------------------------------------------------------------------------- */
+
+._pendo-button-primaryButton,
+._pendo-step-container-styles button[type="submit"] {
+  background-color: var(--pendo-brand-base, #287411) !important;
+  border-color: var(--pendo-brand-base, #287411) !important;
+  color: #ffffff !important;
+  transition: none !important;
+}
+
+._pendo-button-primaryButton:hover,
+._pendo-button-primaryButton:active,
+._pendo-step-container-styles button[type="submit"]:hover,
+._pendo-step-container-styles button[type="submit"]:active {
+  background-color: var(--pendo-brand-dark, #18470A) !important;
+  border-color: var(--pendo-brand-dark, #18470A) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   4) FOOTER BAR
+   -------------------------------------------------------------------------- */
+
+/* Footer styles only apply to button rows OUTSIDE the scroll wrapper */
+._pendo-step-container-styles ._pendo-row:has(.bb-button):not(.pendo-scroll-content *) {
+  background: #F6F6F4 !important;
+  padding: 12px 16px !important;
+  border-radius: 0 0 12px 12px !important;
+  max-height: 64px;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+._pendo-step-container-styles ._pendo-row:has(.bb-button):not(.pendo-scroll-content *) .pendo-mock-flexbox-row {
+  display: flex !important;
+  justify-content: flex-end;
+  align-items: center;
+  min-height: auto !important;
+  position: static !important;
+}
+
+._pendo-step-container-styles ._pendo-row:has(.bb-button):not(.pendo-scroll-content *) .pendo-mock-flexbox-element {
+  position: static !important;
+  display: inline-flex !important;
+}
+
+._pendo-step-container-styles ._pendo-row:has(.bb-button):not(.pendo-scroll-content *) .bb-button {
+  margin: 0 !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   5) HEADER BAR
+   -------------------------------------------------------------------------- */
+
+._pendo-step-container-styles ._pendo-row[data-_pendo-row-1] {
+  background: #F6F6F4 !important;
+  padding: 20px 20px !important;
+  border-radius: 12px 12px 0 0 !important;
+  max-height: 64px;
+  display: flex !important;
+  align-items: center;
+  justify-content: left;
+  color: var(--pendo-brand-base, #287411) !important;
+  flex-shrink: 0;
+}
+
+
+/* --------------------------------------------------------------------------
+   6) SCROLLABLE CONTENT AREA (JS-created wrapper)
+   Vertical padding lives here; horizontal padding is set via JS inline
+   styles so it matches the working version exactly.
+   -------------------------------------------------------------------------- */
+
+.pendo-scroll-content {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overflow-x: hidden;
+  min-height: 350px;
+  scrollbar-gutter: stable;
+  padding-top: 24px;
+  padding-bottom: 24px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+
+/* --------------------------------------------------------------------------
+   7) HEADING COLOR
+   -------------------------------------------------------------------------- */
+
+._pendo-step-container-styles h1 {
+  color: var(--pendo-brand-base, #287411) !important;
+}
+
+
+/* --------------------------------------------------------------------------
+   8) DESIGNER-SAFE ROW PADDING
+
+   In the designer, JS doesn't run so the scroll wrapper never exists.
+   These rules give content rows horizontal padding so the designer
+   looks reasonable. The JS scroll wrapper provides its own padding at
+   runtime, so these only matter in the designer view.
+   -------------------------------------------------------------------------- */
+
+/* Only apply row padding when NOT inside the JS scroll wrapper.
+   In the preview, the scroll wrapper provides horizontal padding.
+   In the designer, the scroll wrapper doesn't exist so these kick in. */
+._pendo-step-container-styles ._pendo-row:not(.pendo-scroll-content *),
+._pendo-step-container-styles ._pendo-text-paragraph:not(.pendo-scroll-content *),
+._pendo-step-container-styles ._pendo-text-custom:not(.pendo-scroll-content *) {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Header and footer already define their own padding */
+._pendo-step-container-styles ._pendo-row[data-_pendo-row-1] {
+  padding: 20px 20px !important;
+}
+
+._pendo-step-container-styles ._pendo-row:has(.bb-button):not(.pendo-scroll-content *) {
+  padding: 12px 16px !important;
+}

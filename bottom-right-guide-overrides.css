@@ -1,0 +1,151 @@
+/* ==========================================================================
+   PENDO BOTTOM-RIGHT GUIDE OVERRIDES
+
+   1) Animation — Slides in from the right after a delay
+   2) Close button — Pill-style close (Bottom Right Aligned guides only)
+   3) Content padding — Designer-safe horizontal padding on rows;
+      image rows get zero padding for full-bleed images
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1) GUIDE ANIMATION (slides in from the right)
+   -------------------------------------------------------------------------- */
+
+._pendo-step-container-styles button {
+  cursor: pointer;
+}
+
+._pendo-step-container-styles {
+  overflow: hidden !important;
+  opacity: 0;
+  transform: translateX(16px);
+  transition: opacity 320ms cubic-bezier(0.4, 0, 0.2, 1),
+              transform 320ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+._pendo-step-container-styles.pendo-animate-in {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+
+/* --------------------------------------------------------------------------
+   2) CLOSE BUTTON PILL
+   -------------------------------------------------------------------------- */
+
+.pendo-close-circle-wrap {
+  position: absolute !important;
+  top: 12px !important;
+  right: 12px !important;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c6c2bf;
+  box-shadow: 1px 1px 0 2px rgba(56, 49, 47, 0.04);
+  z-index: 999999 !important;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pendo-close-circle-wrap:hover {
+  border-color: #676260;
+}
+
+.pendo-close-circle-wrap > button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pendo-close-circle-wrap svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+.pendo-close-circle-wrap svg path {
+  stroke: #3b3737;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 160ms ease;
+}
+
+.pendo-close-circle-wrap:active {
+  border-color: var(--pendo-brand-base, #287411);
+  box-shadow: inset 2px 2px 0 1px rgba(56, 49, 47, 0.10);
+}
+
+.pendo-close-circle-wrap:active svg path {
+  stroke: var(--pendo-brand-base, #287411);
+}
+
+
+/* --------------------------------------------------------------------------
+   3) CONTENT PADDING (designer-safe)
+
+   Horizontal padding on all rows so the designer view looks correct.
+   Image rows get zero padding for full-bleed images.
+   JS also sets padding at runtime (handles edge cases), but this CSS
+   ensures padding is visible in the designer without JS.
+   -------------------------------------------------------------------------- */
+
+/* Full-bleed content images (scoped to ._pendo-image to avoid editor icons) */
+._pendo-step-container-styles ._pendo-image img {
+  width: 100% !important;
+  display: block !important;
+}
+
+/* Default horizontal padding on all rows */
+._pendo-step-container-styles ._pendo-row {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Poll question text sits outside a _pendo-row — pad it separately.
+   Uses [data-pendo-poll-id] to match all poll types (yes/no, number scale, etc.) */
+._pendo-step-container-styles ._pendo-text-paragraph[data-pendo-poll-id] {
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
+
+/* Remove Pendo's fixed max-width on text blocks so they fill the row */
+._pendo-step-container-styles ._pendo-text-paragraph,
+._pendo-step-container-styles ._pendo-text-title,
+._pendo-step-container-styles ._pendo-text-custom,
+._pendo-step-container-styles ._pendo-text-plain,
+._pendo-step-container-styles ._pendo-simple-text {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Headings: balance line lengths evenly */
+._pendo-step-container-styles ._pendo-text-title {
+  text-wrap: balance !important;
+}
+
+/* Body text: avoid orphan words on the last line */
+._pendo-step-container-styles ._pendo-text-paragraph {
+  text-wrap: pretty !important;
+}
+
+/* Image rows: zero padding for full-bleed */
+._pendo-step-container-styles ._pendo-row:has(._pendo-image) {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}

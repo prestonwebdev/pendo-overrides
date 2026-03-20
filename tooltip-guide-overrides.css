@@ -1,0 +1,109 @@
+/* ==========================================================================
+   PENDO TOOLTIP GUIDE OVERRIDES
+
+   1) Close button — Custom pill-style close (Centered guides only, via JS)
+   2) Brand colors — Primary and secondary button overrides
+   ========================================================================== */
+
+
+/* --------------------------------------------------------------------------
+   1) CLOSE BUTTON PILL
+   -------------------------------------------------------------------------- */
+
+.pendo-close-circle-wrap {
+  position: absolute !important;
+  top: 16px !important;
+  right: 16px !important;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #ffffff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #c6c2bf;
+  box-shadow: 1px 1px 0 2px rgba(56, 49, 47, 0.04);
+  z-index: 999999 !important;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease;
+}
+
+.pendo-close-circle-wrap:hover {
+  border-color: #676260;
+}
+
+.pendo-close-circle-wrap > button {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.pendo-close-circle-wrap svg {
+  display: block;
+  width: 16px;
+  height: 16px;
+  transform-origin: 50% 50%;
+  transform: scale(1.15);
+  pointer-events: none;
+}
+
+.pendo-close-circle-wrap svg path {
+  stroke: #3b3737;
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  transition: stroke 160ms ease;
+}
+
+.pendo-close-circle-wrap:active {
+  border-color: var(--pendo-brand-base, #287411);
+  box-shadow: inset 2px 2px 0 1px rgba(56, 49, 47, 0.10);
+}
+
+.pendo-close-circle-wrap:active svg path {
+  stroke: var(--pendo-brand-base, #287411);
+}
+
+
+/* --------------------------------------------------------------------------
+   2) BRAND COLORS — Primary and secondary button overrides
+   -------------------------------------------------------------------------- */
+
+/* Primary button */
+._pendo-button-primaryButton,
+._pendo-step-container-styles button[type="submit"] {
+  background-color: var(--pendo-brand-base, #287411) !important;
+  border-color: var(--pendo-brand-base, #287411) !important;
+  color: #ffffff !important;
+  transition: none !important;
+}
+
+._pendo-button-primaryButton:hover,
+._pendo-button-primaryButton:active,
+._pendo-step-container-styles button[type="submit"]:hover,
+._pendo-step-container-styles button[type="submit"]:active {
+  background-color: var(--pendo-brand-dark, #18470A) !important;
+  border-color: var(--pendo-brand-dark, #18470A) !important;
+}
+
+/* Secondary button */
+._pendo-button-secondaryButton {
+  background-color: transparent !important;
+  border-color: var(--pendo-brand-base, #287411) !important;
+  color: var(--pendo-brand-base, #287411) !important;
+  transition: none !important;
+}
+
+._pendo-button-secondaryButton:hover,
+._pendo-button-secondaryButton:active {
+  background-color: var(--pendo-brand-lightest, #F1FCED) !important;
+  border-color: var(--pendo-brand-dark, #18470A) !important;
+  color: var(--pendo-brand-dark, #18470A) !important;
+}
